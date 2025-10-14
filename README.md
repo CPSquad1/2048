@@ -328,7 +328,7 @@ Before submitting your PR, ensure:
 - **Found a bug?** Create an issue with steps to reproduce
 - **Have questions?** Reach out to the maintainers:
   - Email: cpsquad@charusat.ac.in
-  - Or contact Nandit Kalaria (7990785212) or Nirmit Patel (7016779496)
+  - Or contact Bhumi Shah (6352281640) or Priyanshi Gajiwala (70167 55944)
 
 ### Community Guidelines
 
