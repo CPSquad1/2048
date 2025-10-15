@@ -4,14 +4,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: #faf8ef;  */
   font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* Center game container and add padding  -
-updated for centering*/
+/* Center game container and add padding */
 .game-container {
-  /* background: #f9f6f2; */
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
@@ -27,17 +24,24 @@ updated for centering*/
   display: inline-block;
   margin: 0 8px;
 }
+
 /* Grid and cells */
 .grid-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
 }
+
 .grid-container {
   width: 100%;
   max-width: 400px;
+  aspect-ratio: 1/1;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -47,18 +51,24 @@ updated for centering*/
   padding: 14px;
   border-radius: 6px;
   width: 100%;
+  height: 100%;
   box-sizing: border-box;
+  aspect-ratio: 1/1;
 }
+
 .grid-cell {
   background: #eee4da;
   border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60px;
   font-size: 1.4rem;
   color: #776e65;
   user-select: none;
+  aspect-ratio: 1/1;
+  /*squares update-2 */
+  width: 100%;
+  height: 100%;
 }
 
 @media (max-width: 500px) {
@@ -72,10 +82,6 @@ updated for centering*/
   .grid {
     gap: 8px;
     padding: 8px;
-  }
-  .grid-cell {
-    height: 40px;
-    font-size: 1rem;
   }
 }
 
