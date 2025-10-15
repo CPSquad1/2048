@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>2048</h1>
+            <div class="scores-container">
+                <div class="score-box">
+                    <div class="score-label">Score</div>
+                    <div class="score-value" id="score">0</div>
+                </div>
+                <div class="score-box">
+                    <div class="score-label">Best Score</div>
+                    <div class="score-value" id="best-score">0</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-info">
+            <p>Join the numbers and get to the <strong>2048 tile!</strong></p>
+            <div class="controls">
+                <button id="new-game-btn" class="btn">New Game</button>
+                <button id="theme-toggle-btn" class="btn">🌙 Dark Mode</button>
+            </div>
+        </div>
+
+        <div class="game-container">
+            <div class="grid-container" id="grid-container"></div>
+            <div class="game-message" id="game-message">
+                <div class="message-content">
+                    <p id="message-text"></p>
+                    <button id="restart-btn" class="btn">Try Again</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>How to Play</h3>
+            <p>Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
