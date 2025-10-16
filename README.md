@@ -9,6 +9,7 @@ Welcome to the 2048 Game project! This is a beginner-friendly open source contri
 ## 📋 Table of Contents
 
 - [Project Overview](#project-overview)
+- [How to Play](#how-to-play)
 - [Features to Implement](#features-to-implement)
 - [Technical Requirements](#technical-requirements)
 - [Getting Started](#getting-started)
@@ -29,6 +30,24 @@ Build a fully functional 2048 game with a clean, modern interface that supports 
 **Difficulty Level:** Beginner to Intermediate
 
 **Tech Stack:** HTML5, CSS3, Vanilla JavaScript (No frameworks or libraries)
+
+---
+
+## 📖 How to Play
+
+To win this game, you have to slide and combine tiles until you successfully create the **2048 tile**! 🏆
+
+### The Rules 📜
+- The game is played on the classic **4x4 grid**. (Keep an eye out for future updates that may introduce different board sizes to vary the challenge!)
+- Two tiles, either a '2' or a '4', will appear in random empty spots at the start.
+- With every move, a new '2' or '4' tile will appear in a random empty spot.
+- When two tiles with the **same number** touch, they **merge into one** tile with their sum. For example, two '8' tiles merge to become a single '16' tile.
+
+### Controls 🕹️
+- **Desktop:** Use the **Arrow Keys** (`↑`, `↓`, `←`, `→`) on your keyboard to move all tiles in that direction.
+- **Mobile:** **Swipe** up, down, left, or right on the screen.
+
+The game ends when the grid is full and there are no more possible moves left to make. Good luck!
 
 ---
 
