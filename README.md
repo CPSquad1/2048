@@ -348,7 +348,7 @@ All contributors will be:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](link-to-license) file for details.
+This project is licensed under the MIT License - see the [VIEW LICENSE](LICENSE) file for details.
 
 ---
 
