@@ -21,7 +21,33 @@
       <button id="new-game">New Game</button>
       <button id="undo" disabled>Undo</button>
       <button id="theme-toggle">🌙</button>
+      <button id="how-to-play">How to Play</button>
     </header>
+    
+    <!-- Instructions Modal -->
+    <div id="instructions-modal" class="modal">
+      <div class="modal-content">
+        <h2>How to Play 2048</h2>
+        <div class="instructions-text">
+          <h3>Goal</h3>
+          <p>Combine tiles to create the number 2048! Keep combining to achieve higher scores.</p>
+          
+          <h3>Controls</h3>
+          <ul>
+            <li>Use arrow keys (←↑↓→) to move tiles</li>
+            <li>On mobile, swipe in any direction</li>
+          </ul>
+          
+          <h3>Rules</h3>
+          <ul>
+            <li>Tiles with the same number merge when they touch</li>
+            <li>Each move causes a new tile to appear</li>
+            <li>Plan your moves to prevent the board from filling up!</li>
+          </ul>
+        </div>
+        <button id="close-instructions">Got it!</button>
+      </div>
+    </div>
     <div class="grid-wrapper">
       <div class="grid-container">
         <div class="grid">
