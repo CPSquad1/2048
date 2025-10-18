@@ -9,17 +9,47 @@ const messageText = messageBox.querySelector("p");
 const scoreElement = document.getElementById("score");
 const bestScoreElement = document.getElementById("best-score");
 
+// Instructions Modal Elements
+const howToPlayBtn = document.getElementById("how-to-play");
+const instructionsModal = document.getElementById("instructions-modal");
+const closeInstructionsBtn = document.getElementById("close-instructions");
+
 let grid = [];
 let score = 0;
 let bestScore = 0;
 let gameWon = false;
 
 // === Initialize Game ===
-document.addEventListener("DOMContentLoaded", startNewGame);
+document.addEventListener("DOMContentLoaded", () => {
+  startNewGame();
+  
+  // Show instructions modal on first visit
+  if (!localStorage.getItem("2048_instructions_shown")) {
+    instructionsModal.style.display = "flex";
+    localStorage.setItem("2048_instructions_shown", "true");
+  }
+});
+
 newGameBtn.addEventListener("click", startNewGame);
 tryAgainBtn.addEventListener("click", () => startNewGame());
 continueBtn.addEventListener("click", () => {
   messageBox.style.display = "none"; // Hide win message
+});
+
+// Instructions Modal Event Listeners
+howToPlayBtn.addEventListener("click", () => {
+  instructionsModal.style.display = "flex";
+});
+
+closeInstructionsBtn.addEventListener("click", () => {
+  instructionsModal.style.display = "none";
+});
+
+// Close modal when clicking outside
+instructionsModal.addEventListener("click", (e) => {
+  if (e.target === instructionsModal) {
+    instructionsModal.style.display = "none";
+  }
 });
 
 // === Start / Reset Game ===
