@@ -1,3 +1,73 @@
+/* Theme variables */
+:root {
+  --background: #faf8ef;
+  --text: #776e65;
+  --container-background: #ffffff;
+  --grid-background: #bbada0;
+  --cell-background: #eee4da;
+  --cell-text: #776e65;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --btn-bg: #8f7a66;
+  --btn-bg-hover: #7a6858;
+  --btn-text: #ffffff;
+  --btn-disabled-bg: #cfc7c1;
+  --btn-disabled-text: #8d827a;
+  --focus-ring: 0 0 0 3px rgba(143, 122, 102, 0.35);
+}
+
+/* Light theme (manual toggle to force light even if system prefers dark) */
+:root[data-theme="light"] {
+  --background: #faf8ef;
+  --text: #776e65;
+  --container-background: #ffffff;
+  --grid-background: #bbada0;
+  --cell-background: #eee4da;
+  --cell-text: #776e65;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --btn-bg: #8f7a66;
+  --btn-bg-hover: #7a6858;
+  --btn-text: #ffffff;
+  --btn-disabled-bg: #cfc7c1;
+  --btn-disabled-text: #8d827a;
+  --focus-ring: 0 0 0 3px rgba(143, 122, 102, 0.35);
+}
+
+/* Dark theme (manual toggle hook) */
+:root[data-theme="dark"] {
+  --background: #121212;
+  --text: #e6e1d9;
+  --container-background: #1a1a1a;
+  --grid-background: #3a342f;
+  --cell-background: #4a433d;
+  --cell-text: #f1ede8;
+  --shadow-color: rgba(0, 0, 0, 0.6);
+  --btn-bg: #e6a15a;
+  --btn-bg-hover: #d48e45;
+  --btn-text: #1a1a1a;
+  --btn-disabled-bg: #4a433d;
+  --btn-disabled-text: #9c938b;
+  --focus-ring: 0 0 0 3px rgba(230, 161, 90, 0.35);
+}
+
+/* Dark theme (automatic) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #121212;
+    --text: #e6e1d9;
+    --container-background: #1a1a1a;
+    --grid-background: #3a342f;
+    --cell-background: #4a433d;
+    --cell-text: #f1ede8;
+    --shadow-color: rgba(0, 0, 0, 0.6);
+    --btn-bg: #e6a15a;
+    --btn-bg-hover: #d48e45;
+    --btn-text: #1a1a1a;
+    --btn-disabled-bg: #4a433d;
+    --btn-disabled-text: #9c938b;
+    --focus-ring: 0 0 0 3px rgba(230, 161, 90, 0.35);
+  }
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -5,18 +75,67 @@ body {
   justify-content: center;
   align-items: center;
   font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--background);
+  color: var(--text);
+}
+
+/* Buttons */
+button {
+  appearance: none;
+  border: none;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1), 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+button:hover:not(:disabled) {
+  background: var(--btn-bg-hover);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring), 0 2px 0 rgba(0, 0, 0, 0.1), 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+button:disabled {
+  background: var(--btn-disabled-bg);
+  color: var(--btn-disabled-text);
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* Compact circular icon style for theme toggle */
+#theme-toggle {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 /* Center game container and add padding */
 .game-container {
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0px 4px 20px var(--shadow-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 95vw;
   max-width: 520px;
+  background: var(--container-background);
 }
 
 /* Header styling */
@@ -47,7 +166,7 @@ body {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   gap: 12px;
-  background: #bbada0;
+  background: var(--grid-background);
   padding: 14px;
   border-radius: 6px;
   width: 100%;
@@ -57,13 +176,13 @@ body {
 }
 
 .grid-cell {
-  background: #eee4da;
+  background: var(--cell-background);
   border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.4rem;
-  color: #776e65;
+  color: var(--cell-text);
   user-select: none;
   aspect-ratio: 1/1;
   /*squares update-2 */
@@ -76,12 +195,13 @@ body {
     max-width: 98vw;
     padding: 1rem;
   }
+
   .grid-container {
     max-width: 90vw;
   }
+
   .grid {
     gap: 8px;
     padding: 8px;
   }
 }
-
