@@ -8,6 +8,7 @@ const messageBox = document.getElementById("message");
 const messageText = messageBox.querySelector("p");
 const scoreElement = document.getElementById("score");
 const bestScoreElement = document.getElementById("best-score");
+const toggleBtn = document.getElementById('theme-toggle');
 
 let grid = [];
 let score = 0;
@@ -130,7 +131,7 @@ function isGameOver() {
   for (let r = 0; r < GRID_SIZE; r++) {
     for (let c = 0; c < GRID_SIZE; c++) {
       const current = grid[r][c];
-      if ((r < GRID_SIZE-1 && grid[r+1][c] === current) || 
+      if ((r < GRID_SIZE-1 && grid[r+1][c] === current) ||
           (c < GRID_SIZE-1 && grid[r][c+1] === current)) {
         return false;
       }
@@ -138,3 +139,9 @@ function isGameOver() {
   }
   return true; // No empty cells and no possible merges
 }
+
+ // === Theme toggle ===
+toggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-theme');
+
+});
