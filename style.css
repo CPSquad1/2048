@@ -33,7 +33,8 @@
 }
 
 /* Dark theme (manual toggle hook) */
-:root[data-theme="dark"] {
+/* Dark theme using .dark-theme class */
+.dark-theme {
   --background: #121212;
   --text: #e6e1d9;
   --container-background: #1a1a1a;
