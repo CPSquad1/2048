@@ -16,7 +16,10 @@ let bestScore = 0;
 let gameWon = false;
 
 // === Initialize Game ===
-document.addEventListener("DOMContentLoaded", startNewGame);
+document.addEventListener("DOMContentLoaded", () => {
+  initTheme();
+  startNewGame();
+});
 newGameBtn.addEventListener("click", startNewGame);
 tryAgainBtn.addEventListener("click", () => startNewGame());
 continueBtn.addEventListener("click", () => {
@@ -72,6 +75,36 @@ function renderGrid() {
   });
 }
 
+// === Theme Toggle ===
+const themeToggleBtn = document.getElementById("theme-toggle");
+themeToggleBtn.addEventListener("click", () => {
+  const current = getCurrentTheme();
+  const next = current === "dark" ? "light" : "dark";
+  setTheme(next);
+});
+
+function initTheme() {
+  const saved = localStorage.getItem("theme");
+  const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const theme = saved || (systemPrefersDark ? "dark" : "light");
+  setTheme(theme);
+}
+
+function getCurrentTheme() {
+  return document.documentElement.getAttribute("data-theme") || "light";
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("theme", theme);
+  // Update button icon/text
+  if (themeToggleBtn) {
+    themeToggleBtn.textContent = theme === "dark" ? "☀️" : "🌙";
+    themeToggleBtn.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    themeToggleBtn.title = theme === "dark" ? "Switch to light theme" : "Switch to dark theme";
+  }
+}
+
 // Tile colors
 function getTileColor(value) {
   const colors = {
@@ -102,7 +135,7 @@ function updateScore() {
 
 // === Arrow Key Handling (simplified placeholder) ===
 document.addEventListener("keydown", (e) => {
-  if (!["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key)) return;
+  if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) return;
 
   // FUTURE: Add move + merge logic here
   // For now, just spawn a random tile after key press
@@ -131,17 +164,11 @@ function isGameOver() {
   for (let r = 0; r < GRID_SIZE; r++) {
     for (let c = 0; c < GRID_SIZE; c++) {
       const current = grid[r][c];
-      if ((r < GRID_SIZE-1 && grid[r+1][c] === current) ||
-          (c < GRID_SIZE-1 && grid[r][c+1] === current)) {
+      if ((r < GRID_SIZE - 1 && grid[r + 1][c] === current) ||
+        (c < GRID_SIZE - 1 && grid[r][c + 1] === current)) {
         return false;
       }
     }
   }
   return true; // No empty cells and no possible merges
 }
-
- // === Theme toggle ===
-toggleBtn.addEventListener('click', () => {
-  document.body.classList.toggle('dark-theme');
-
-});
