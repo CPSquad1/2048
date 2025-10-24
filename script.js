@@ -8,6 +8,7 @@ const messageBox = document.getElementById("message");
 const messageText = messageBox.querySelector("p");
 const scoreElement = document.getElementById("score");
 const bestScoreElement = document.getElementById("best-score");
+const toggleBtn = document.getElementById('theme-toggle');
 
 let grid = [];
 let score = 0;
