@@ -16,11 +16,20 @@ let bestScore = 0;
 let gameWon = false;
 
 // === Initialize Game ===
-document.addEventListener("DOMContentLoaded", startNewGame);
+document.addEventListener("DOMContentLoaded", () => {
+  startNewGame();
+  // Focus the game container for keyboard events
+  document.querySelector('.game-container').focus();
+  // Set initial theme
+  document.body.classList.toggle('dark-theme', localStorage.getItem('theme') === 'dark');
+  updateThemeButton();
+});
+
 newGameBtn.addEventListener("click", startNewGame);
-tryAgainBtn.addEventListener("click", () => startNewGame());
+tryAgainBtn.addEventListener("click", startNewGame);
 continueBtn.addEventListener("click", () => {
-  messageBox.style.display = "none"; // Hide win message
+  messageBox.style.display = "none";
+  gameWon = false; // Allow continuing after win
 });
 
 // === Start / Reset Game ===
@@ -100,26 +109,85 @@ function updateScore() {
   }
 }
 
-// === Arrow Key Handling (simplified placeholder) ===
-document.addEventListener("keydown", (e) => {
-  if (!["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key)) return;
-
-  // FUTURE: Add move + merge logic here
-  // For now, just spawn a random tile after key press
-  const moved = spawnRandomTile();
-  if (moved) renderGrid();
-
-  // Check win condition (2048)
-  if (!gameWon && grid.some(row => row.includes(2048))) {
-    gameWon = true;
-    messageText.textContent = "You Win!";
-    messageBox.style.display = "flex";
+// === Move and Merge Functions ===
+function moveTiles(direction) {
+  let moved = false;
+  const oldGrid = JSON.stringify(grid);
+  
+  // Transpose the grid for vertical moves
+  if (direction === 'ArrowUp' || direction === 'ArrowDown') {
+    grid = grid[0].map((_, i) => grid.map(row => row[i]));
   }
+  
+  // Process each row
+  for (let i = 0; i < GRID_SIZE; i++) {
+    let row = grid[i];
+    
+    // Filter out zeros
+    let nonZeros = row.filter(cell => cell !== 0);
+    
+    // Merge tiles
+    if (direction === 'ArrowRight' || direction === 'ArrowDown') {
+      for (let j = nonZeros.length - 1; j > 0; j--) {
+        if (nonZeros[j] === nonZeros[j - 1]) {
+          nonZeros[j] *= 2;
+          score += nonZeros[j];
+          nonZeros.splice(j - 1, 1);
+          j--; // Skip next to prevent double merging
+        }
+      }
+      // Pad with zeros at the beginning
+      while (nonZeros.length < GRID_SIZE) nonZeros.unshift(0);
+    } else {
+      for (let j = 0; j < nonZeros.length - 1; j++) {
+        if (nonZeros[j] === nonZeros[j + 1]) {
+          nonZeros[j] *= 2;
+          score += nonZeros[j];
+          nonZeros.splice(j + 1, 1);
+        }
+      }
+      // Pad with zeros at the end
+      while (nonZeros.length < GRID_SIZE) nonZeros.push(0);
+    }
+    
+    // Update the row
+    grid[i] = nonZeros;
+  }
+  
+  // Transpose back for vertical moves
+  if (direction === 'ArrowUp' || direction === 'ArrowDown') {
+    grid = grid[0].map((_, i) => grid.map(row => row[i]));
+  }
+  
+  // Check if grid changed
+  moved = oldGrid !== JSON.stringify(grid);
+  return moved;
+}
 
-  // Check game over
-  if (isGameOver()) {
-    messageText.textContent = "Game Over!";
-    messageBox.style.display = "flex";
+// === Arrow Key Handling ===
+document.addEventListener("keydown", (e) => {
+  if (["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.key)) {
+    e.preventDefault();
+    const moved = moveTiles(e.key);
+    
+    if (moved) {
+      spawnRandomTile();
+      renderGrid();
+      updateScore();
+      
+      // Check win condition (2048)
+      if (!gameWon && grid.some(row => row.includes(2048))) {
+        gameWon = true;
+        messageText.textContent = "You Win! Click 'New Game' to play again.";
+        messageBox.style.display = "flex";
+      }
+      
+      // Check game over
+      if (isGameOver()) {
+        messageText.textContent = "Game Over! Click 'New Game' to play again.";
+        messageBox.style.display = "flex";
+      }
+    }
   }
 });
 
@@ -140,8 +208,17 @@ function isGameOver() {
   return true; // No empty cells and no possible merges
 }
 
- // === Theme toggle ===
+ // === Theme Toggle ===
+function updateThemeButton() {
+  const isDark = document.body.classList.contains('dark-theme');
+  toggleBtn.textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
 toggleBtn.addEventListener('click', () => {
   document.body.classList.toggle('dark-theme');
-
+  updateThemeButton();
 });
+
+// Initialize theme button
+updateThemeButton();
